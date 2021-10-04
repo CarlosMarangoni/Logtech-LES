@@ -1,4 +1,4 @@
-package br.com.logtech.logtech;
+package br.com.logtech;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
