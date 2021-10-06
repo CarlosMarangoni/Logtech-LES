@@ -1,5 +1,7 @@
 package br.com.logtech.domain.model;
 
+import br.com.logtech.domain.model.dto.ProdutoForm;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,6 +17,18 @@ public class Produto {
     private Double peso;
 
     private Double volume;
+
+    public static Produto toModel(ProdutoForm produtoForm) {
+        return new Produto(produtoForm.getDescricao(),
+                produtoForm.getPeso(),
+                produtoForm.getVolume());
+    }
+
+    public Produto(String descricao, Double peso, Double volume) {
+        this.descricao = descricao;
+        this.peso = peso;
+        this.volume = volume;
+    }
 
     public Long getId() {
         return id;
