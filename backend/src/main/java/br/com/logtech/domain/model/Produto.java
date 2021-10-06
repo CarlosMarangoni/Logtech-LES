@@ -1,11 +1,12 @@
 package br.com.logtech.domain.model;
 
 import br.com.logtech.domain.model.dto.ProdutoForm;
+import br.com.logtech.domain.model.enumeration.UnidadeMedida;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Locale;
 
+@Entity
 public class Produto {
 
     @Id
@@ -18,16 +19,25 @@ public class Produto {
 
     private Double volume;
 
+    @Enumerated(EnumType.STRING)
+    private UnidadeMedida unidadeMedida;
+
     public static Produto toModel(ProdutoForm produtoForm) {
         return new Produto(produtoForm.getDescricao(),
                 produtoForm.getPeso(),
-                produtoForm.getVolume());
+                produtoForm.getVolume(),
+                UnidadeMedida.valueOf(produtoForm.getUnidadeMedida().toUpperCase(Locale.ROOT)));
     }
 
-    public Produto(String descricao, Double peso, Double volume) {
+    public Produto(){
+
+    }
+
+    public Produto(String descricao, Double peso, Double volume,UnidadeMedida unidadeMedida) {
         this.descricao = descricao;
         this.peso = peso;
         this.volume = volume;
+        this.unidadeMedida = unidadeMedida;
     }
 
     public Long getId() {
@@ -60,5 +70,13 @@ public class Produto {
 
     public void setVolume(Double volume) {
         this.volume = volume;
+    }
+
+    public UnidadeMedida getUnidadeMedida() {
+        return unidadeMedida;
+    }
+
+    public void setUnidadeMedida(UnidadeMedida unidadeMedida) {
+        this.unidadeMedida = unidadeMedida;
     }
 }

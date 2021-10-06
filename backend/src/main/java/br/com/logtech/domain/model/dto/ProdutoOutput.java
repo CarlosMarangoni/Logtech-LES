@@ -1,6 +1,8 @@
 package br.com.logtech.domain.model.dto;
 
+import br.com.logtech.domain.model.Estoque;
 import br.com.logtech.domain.model.Produto;
+import br.com.logtech.domain.model.enumeration.UnidadeMedida;
 
 public class ProdutoOutput {
 
@@ -9,6 +11,10 @@ public class ProdutoOutput {
     private Double peso;
 
     private Double volume;
+
+    private Double quantidadeEstoque;
+
+    private UnidadeMedida unidadeMedida;
 
     public ProdutoOutput(String descricao, Double peso, Double volume) {
         this.descricao = descricao;
@@ -40,9 +46,35 @@ public class ProdutoOutput {
         this.volume = volume;
     }
 
-    public static ProdutoOutput toOutput(Produto produto){
-        return new ProdutoOutput(produto.getDescricao(),
-                produto.getPeso(),
-                produto.getVolume());
+    public ProdutoOutput(String descricao, Double peso, Double volume, Double quantidadeEstoque, UnidadeMedida unidadeMedida) {
+        this.descricao = descricao;
+        this.peso = peso;
+        this.volume = volume;
+        this.quantidadeEstoque = quantidadeEstoque;
+        this.unidadeMedida = unidadeMedida;
+    }
+
+    public Double getQuantidadeEstoque() {
+        return quantidadeEstoque;
+    }
+
+    public void setQuantidadeEstoque(Double quantidadeEstoque) {
+        this.quantidadeEstoque = quantidadeEstoque;
+    }
+
+    public UnidadeMedida getUnidadeMedida() {
+        return unidadeMedida;
+    }
+
+    public void setUnidadeMedida(UnidadeMedida unidadeMedida) {
+        this.unidadeMedida = unidadeMedida;
+    }
+
+    public static ProdutoOutput toOutput(Estoque produto){
+        return new ProdutoOutput(produto.getProduto().getDescricao(),
+                produto.getProduto().getPeso(),
+                produto.getProduto().getVolume(),
+                produto.getQuantidade(),
+                produto.getProduto().getUnidadeMedida());
     }
 }

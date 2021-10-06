@@ -1,11 +1,15 @@
 package br.com.logtech.domain.model;
 
+import br.com.logtech.domain.model.dto.NotaFiscalForm;
+import br.com.logtech.domain.model.dto.ProdutoForm;
 import br.com.logtech.domain.model.enumeration.FormaPagamento;
 import br.com.logtech.domain.model.enumeration.Moeda;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.time.OffsetDateTime;
+import java.util.List;
 
 @Entity
 public class NotaFiscal {
@@ -32,9 +36,14 @@ public class NotaFiscal {
     @Enumerated(EnumType.STRING)
     private Moeda moeda;
 
+    private BigDecimal valorTotal;
+
     private Boolean entregue;
 
     private Integer notaEntregador;
+
+    @OneToMany
+    private List<Estoque> produtos;
 
     private Integer notaTempoDeEntrega;
 
@@ -60,6 +69,10 @@ public class NotaFiscal {
         this.notaTempoDeEntrega = notaTempoDeEntrega;
         this.notaAtendimento = notaAtendimento;
         this.observacaoPesquisa = observacaoPesquisa;
+    }
+
+    public static NotaFiscal toModel(NotaFiscalForm notaFiscalForm) {
+        return null;
     }
 
     public Long getId() {
@@ -124,6 +137,14 @@ public class NotaFiscal {
 
     public void setMoeda(Moeda moeda) {
         this.moeda = moeda;
+    }
+
+    public BigDecimal getPrice() {
+        return valorTotal;
+    }
+
+    public void setPrice(BigDecimal valorTotal) {
+        this.valorTotal = valorTotal;
     }
 
     public boolean isEntregue() {

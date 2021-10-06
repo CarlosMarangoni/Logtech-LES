@@ -1,6 +1,7 @@
 package br.com.logtech.domain.model.dto;
 
 import br.com.logtech.domain.model.Produto;
+import br.com.logtech.domain.model.enumeration.UnidadeMedida;
 
 public class ProdutoForm {
 
@@ -10,10 +11,13 @@ public class ProdutoForm {
 
     private Double volume;
 
-    public ProdutoForm(String descricao, Double peso, Double volume) {
+    private String unidadeMedida;
+
+    public ProdutoForm(String descricao, Double peso, Double volume,String unidadeMedida) {
         this.descricao = descricao;
         this.peso = peso;
         this.volume = volume;
+        this.unidadeMedida = unidadeMedida;
     }
 
     public String getDescricao() {
@@ -40,9 +44,18 @@ public class ProdutoForm {
         this.volume = volume;
     }
 
-    public static ProdutoForm toOutput(Produto produto){
+    public String getUnidadeMedida() {
+        return unidadeMedida;
+    }
+
+    public void setUnidadeMedida(String unidadeMedida) {
+        this.unidadeMedida = unidadeMedida;
+    }
+
+    public static ProdutoForm toForm(Produto produto){
         return new ProdutoForm(produto.getDescricao(),
                 produto.getPeso(),
-                produto.getVolume());
+                produto.getVolume(),
+                produto.getUnidadeMedida().name());
     }
 }
