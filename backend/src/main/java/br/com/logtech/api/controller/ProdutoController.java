@@ -56,7 +56,7 @@ public class ProdutoController {
     @DeleteMapping("/{produtoId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void excluirProduto(@PathVariable Long produtoId){
-       produtoRepository.deleteById(produtoId);
+       produtoService.excluir(produtoId);
     }
 
 }

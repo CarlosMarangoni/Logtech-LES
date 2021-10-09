@@ -47,6 +47,18 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
 
     }
 
+    @ExceptionHandler(EntradaInvalidaException.class)
+    public ResponseEntity<Object> handleEntradaInvalidaException(EntradaInvalidaException ex, WebRequest request) {
+        Error error = new Error();
+        error.setMessage(ex.getMessage());
+        error.setTimestamp(OffsetDateTime.now());
+        error.setPath(((ServletWebRequest)request).getRequest().getRequestURI().toString());
+        error.setStatus(HttpStatus.BAD_REQUEST.value());
+
+        return handleExceptionInternal(ex, error, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
+
+    }
+
 
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers,

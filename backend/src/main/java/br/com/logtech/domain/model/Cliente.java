@@ -1,29 +1,23 @@
 package br.com.logtech.domain.model;
 
-import org.hibernate.validator.constraints.br.CNPJ;
-import org.hibernate.validator.constraints.br.CPF;
+import br.com.logtech.domain.exception.EntradaInvalidaException;
+import br.com.logtech.domain.model.dto.ClienteForm;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "tipo_cliente")
 public class Cliente {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String nome;
+    protected String nome;
 
-    private String sobrenome;
-
-    @CPF
-    private String cpf;
-
-    @CNPJ
-    private String cnpj;
+    public Cliente() {
+    }
 
     public Long getId() {
         return id;
@@ -41,27 +35,20 @@ public class Cliente {
         this.nome = nome;
     }
 
-    public String getSobrenome() {
-        return sobrenome;
+    public static Cliente toModel(ClienteForm clienteForm) {
+       if(clienteForm.getTipoPessoa().equalsIgnoreCase("FISICA")){
+           return new PessoaFisica(
+                   clienteForm.getNome(),
+                   clienteForm.getDocumento());
+
+       }else{
+           if (clienteForm.getTipoPessoa().equalsIgnoreCase("JURIDICA")){
+               return new PessoaJuridica(
+                       clienteForm.getNome(),
+                       clienteForm.getDocumento());
+           }
+       }
+       throw new EntradaInvalidaException("Informe se é pessoa física ou jurídica.");
     }
 
-    public void setSobrenome(String sobrenome) {
-        this.sobrenome = sobrenome;
-    }
-
-    public String getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
-
-    public String getCnpj() {
-        return cnpj;
-    }
-
-    public void setCnpj(String cnpj) {
-        this.cnpj = cnpj;
-    }
 }

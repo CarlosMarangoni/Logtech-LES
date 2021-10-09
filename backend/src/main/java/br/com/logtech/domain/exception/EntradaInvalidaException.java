@@ -1,10 +1,10 @@
 package br.com.logtech.domain.exception;
 
-public class PageNotFoundException extends RuntimeException {
+public class EntradaInvalidaException extends RuntimeException {
 
     private String message;
 
-    public PageNotFoundException(String message) {
+    public EntradaInvalidaException(String message) {
         this.message = message;
     }
 

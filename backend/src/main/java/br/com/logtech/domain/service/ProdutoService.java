@@ -1,6 +1,7 @@
 package br.com.logtech.domain.service;
 
 import br.com.logtech.domain.exception.JaExisteException;
+import br.com.logtech.domain.exception.PageNotFoundException;
 import br.com.logtech.domain.model.Estoque;
 import br.com.logtech.domain.model.Produto;
 import br.com.logtech.domain.model.dto.ProdutoForm;
@@ -28,5 +29,16 @@ public class ProdutoService {
         estoqueRepository.save(estoque);
 
         return produto;
+    }
+
+    public void excluir(Long produtoId) {
+        Estoque estoque = estoqueRepository.findById(produtoId).orElseThrow(() -> new PageNotFoundException("Produto não encontrado"));
+        if(estoque.getQuantidade() == 0){
+            estoqueRepository.deleteById(produtoId);
+            produtoRepository.deleteById(produtoId);
+        } else{
+            throw new JaExisteException("O produto possui uma quantidade no estoque. Favor excluir o produto do estoque para prosseguir.");
+        }
+
     }
 }
