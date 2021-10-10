@@ -1,5 +1,6 @@
 package br.com.logtech.domain.service;
 
+import br.com.logtech.domain.exception.JaExisteException;
 import br.com.logtech.domain.model.Veiculo;
 import br.com.logtech.domain.model.dto.VeiculoForm;
 import br.com.logtech.domain.repository.VeiculoRepository;
@@ -13,6 +14,9 @@ public class VeiculoService {
     private VeiculoRepository  veiculoRepository;
 
     public Veiculo cadastrar(VeiculoForm veiculoForm) {
+        if(veiculoRepository.findByPlaca(veiculoForm.getPlaca()).isPresent()){
+            throw new JaExisteException("Veículo já existe");
+        }
         Veiculo veiculo = Veiculo.toModel(veiculoForm);
         return veiculoRepository.save(veiculo);
     }

@@ -2,24 +2,36 @@ package br.com.logtech.domain.model.dto;
 
 import br.com.logtech.domain.model.Veiculo;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 public class VeiculoForm {
 
+    @NotEmpty
     private String placa;
 
+    @NotEmpty
     private String chassi;
 
+    @NotEmpty
     private String cor;
 
+    @NotEmpty
     private String modelo;
 
+    @NotNull
     private Double comprimento;
 
+    @NotNull
     private Double largura;
 
+    @NotNull
     private Double altura;
 
+    @NotNull
     private Double volumeMax;
 
+    @NotNull
     private Double capacidadeMax;
 
     public VeiculoForm() {
