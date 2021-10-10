@@ -1,18 +1,8 @@
-package br.com.logtech.domain.model;
+package br.com.logtech.domain.model.dto;
 
-import br.com.logtech.domain.model.dto.VeiculoForm;
+import br.com.logtech.domain.model.Veiculo;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
-@Entity
-public class Veiculo {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class VeiculoForm {
 
     private String placa;
 
@@ -32,12 +22,10 @@ public class Veiculo {
 
     private Double capacidadeMax;
 
-    private Boolean isDisponivel;
-
-    public Veiculo() {
+    public VeiculoForm() {
     }
 
-    public Veiculo(String placa, String chassi, String cor, String modelo, Double comprimento, Double largura, Double altura, Double volumeMax, Double capacidadeMax, Boolean isDisponivel) {
+    public VeiculoForm(String placa, String chassi, String cor, String modelo, Double comprimento, Double largura, Double altura, Double volumeMax, Double capacidadeMax) {
         this.placa = placa;
         this.chassi = chassi;
         this.cor = cor;
@@ -47,15 +35,6 @@ public class Veiculo {
         this.altura = altura;
         this.volumeMax = volumeMax;
         this.capacidadeMax = capacidadeMax;
-        this.isDisponivel = true;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getPlaca() {
@@ -130,24 +109,17 @@ public class Veiculo {
         this.capacidadeMax = capacidadeMax;
     }
 
-    public Boolean getDisponivel() {
-        return isDisponivel;
+    public static VeiculoForm toForm(Veiculo veiculo){
+        return new VeiculoForm(
+                veiculo.getPlaca(),
+                veiculo.getChassi(),
+                veiculo.getCor(),
+                veiculo.getModelo(),
+                veiculo.getComprimento(),
+                veiculo.getLargura(),
+                veiculo.getAltura(),
+                veiculo.getVolumeMax(),
+                veiculo.getCapacidadeMax());
     }
 
-    public void setDisponivel(Boolean disponivel) {
-        isDisponivel = disponivel;
-    }
-
-    public static Veiculo toModel(VeiculoForm veiculoForm) {
-        return new Veiculo(veiculoForm.getPlaca(),
-                veiculoForm.getChassi(),
-                veiculoForm.getCor(),
-                veiculoForm.getModelo(),
-                veiculoForm.getComprimento(),
-                veiculoForm.getLargura(),
-                veiculoForm.getAltura(),
-                veiculoForm.getVolumeMax(),
-                veiculoForm.getCapacidadeMax(),
-                true);
-    }
 }

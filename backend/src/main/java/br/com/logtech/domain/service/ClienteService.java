@@ -14,7 +14,6 @@ public class ClienteService {
 
     public Cliente cadastrar(ClienteForm clienteForm) {
         Cliente cliente = Cliente.toModel(clienteForm);
-        clienteRepository.save(cliente);
         return clienteRepository.save(cliente);
     }
 
