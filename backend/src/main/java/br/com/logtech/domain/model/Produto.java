@@ -40,6 +40,12 @@ public class Produto {
         this.unidadeMedida = unidadeMedida;
     }
 
+    public static Produto of(Long idProduto) {
+        Produto produto = new Produto();
+        produto.setId(idProduto);
+        return produto;
+    }
+
     public Long getId() {
         return id;
     }

@@ -19,6 +19,12 @@ public class Cliente {
     public Cliente() {
     }
 
+    public static Cliente of(Long clienteId) {
+        Cliente cliente = new Cliente();
+        cliente.setId(clienteId);
+        return cliente;
+    }
+
     public Long getId() {
         return id;
     }

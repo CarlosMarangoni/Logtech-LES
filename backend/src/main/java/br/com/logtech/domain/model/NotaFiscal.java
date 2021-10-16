@@ -2,6 +2,7 @@ package br.com.logtech.domain.model;
 
 import br.com.logtech.domain.model.dto.NotaFiscalForm;
 import br.com.logtech.domain.model.dto.ProdutoForm;
+import br.com.logtech.domain.model.dto.ProdutoNotaOutput;
 import br.com.logtech.domain.model.enumeration.FormaPagamento;
 import br.com.logtech.domain.model.enumeration.Moeda;
 import org.hibernate.annotations.CreationTimestamp;
@@ -9,7 +10,9 @@ import org.hibernate.annotations.CreationTimestamp;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 public class NotaFiscal {
@@ -38,12 +41,12 @@ public class NotaFiscal {
 
     private BigDecimal valorTotal;
 
-    private Boolean entregue;
+    private Boolean entregue = Boolean.FALSE;
 
     private Integer notaEntregador;
 
-    @OneToMany
-    private List<Estoque> produtos;
+    @OneToMany(mappedBy = "produtoNotaPK.notaFiscal",cascade = CascadeType.ALL)
+    private List<ProdutoNota> produtos = new ArrayList<>();
 
     private Integer notaTempoDeEntrega;
 
@@ -56,7 +59,7 @@ public class NotaFiscal {
     };
 
     public NotaFiscal(String numero, String endereco, OffsetDateTime dtVencimento, Cliente cliente,
-                      FormaPagamento formaPagamento, Moeda moeda, Boolean entregue, Integer notaEntregador,
+                      FormaPagamento formaPagamento, Moeda moeda, Integer notaEntregador,
                       Integer notaTempoDeEntrega, Integer notaAtendimento, String observacaoPesquisa) {
         this.numero = numero;
         this.endereco = endereco;
@@ -64,15 +67,22 @@ public class NotaFiscal {
         this.cliente = cliente;
         this.formaPagamento = formaPagamento;
         this.moeda = moeda;
-        this.entregue = false;
         this.notaEntregador = notaEntregador;
         this.notaTempoDeEntrega = notaTempoDeEntrega;
         this.notaAtendimento = notaAtendimento;
         this.observacaoPesquisa = observacaoPesquisa;
     }
 
-    public static NotaFiscal toModel(NotaFiscalForm notaFiscalForm) {
-        return null;
+    public NotaFiscal(String numero, String endereco, OffsetDateTime dtVencimento,
+                      Cliente cliente, FormaPagamento formaPagamento, Moeda moeda, BigDecimal valorTotal, List<ProdutoNota> produtos) {
+        this.numero = numero;
+        this.endereco = endereco;
+        this.dtVencimento = dtVencimento;
+        this.cliente = cliente;
+        this.formaPagamento = formaPagamento;
+        this.moeda = moeda;
+        this.valorTotal = valorTotal;
+        this.produtos = produtos;
     }
 
     public Long getId() {
@@ -139,20 +149,12 @@ public class NotaFiscal {
         this.moeda = moeda;
     }
 
-    public BigDecimal getPrice() {
+    public BigDecimal getValorTotal() {
         return valorTotal;
     }
 
-    public void setPrice(BigDecimal valorTotal) {
+    public void setValorTotal(BigDecimal valorTotal) {
         this.valorTotal = valorTotal;
-    }
-
-    public boolean isEntregue() {
-        return entregue;
-    }
-
-    public void setEntregue(boolean entregue) {
-        this.entregue = entregue;
     }
 
     public Integer getNotaEntregador() {
@@ -185,5 +187,21 @@ public class NotaFiscal {
 
     public void setObservacaoPesquisa(String observacaoPesquisa) {
         this.observacaoPesquisa = observacaoPesquisa;
+    }
+
+    public Boolean getEntregue() {
+        return entregue;
+    }
+
+    public void setEntregue(Boolean entregue) {
+        this.entregue = entregue;
+    }
+
+    public List<ProdutoNota> getProdutos() {
+        return produtos;
+    }
+
+    public void setProdutos(List<ProdutoNota> produtos) {
+        this.produtos = produtos;
     }
 }

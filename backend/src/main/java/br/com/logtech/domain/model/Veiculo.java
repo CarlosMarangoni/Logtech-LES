@@ -22,6 +22,8 @@ public class Veiculo {
 
     private String modelo;
 
+    private String renavam;
+
     private Double comprimento;
 
     private Double largura;
@@ -32,22 +34,23 @@ public class Veiculo {
 
     private Double capacidadeMax;
 
-    private Boolean isDisponivel;
+    private Boolean disponivel;
 
     public Veiculo() {
     }
 
-    public Veiculo(String placa, String chassi, String cor, String modelo, Double comprimento, Double largura, Double altura, Double volumeMax, Double capacidadeMax, Boolean isDisponivel) {
+    public Veiculo(String placa, String chassi, String cor, String modelo,String renavam, Double comprimento, Double largura, Double altura, Double volumeMax, Double capacidadeMax, Boolean isDisponivel) {
         this.placa = placa;
         this.chassi = chassi;
         this.cor = cor;
         this.modelo = modelo;
+        this.renavam = renavam;
         this.comprimento = comprimento;
         this.largura = largura;
         this.altura = altura;
         this.volumeMax = volumeMax;
         this.capacidadeMax = capacidadeMax;
-        this.isDisponivel = true;
+        this.disponivel = Boolean.TRUE;
     }
 
     public Long getId() {
@@ -90,6 +93,14 @@ public class Veiculo {
         this.modelo = modelo;
     }
 
+    public String getRenavam() {
+        return renavam;
+    }
+
+    public void setRenavam(String renavam) {
+        this.renavam = renavam;
+    }
+
     public Double getComprimento() {
         return comprimento;
     }
@@ -130,12 +141,13 @@ public class Veiculo {
         this.capacidadeMax = capacidadeMax;
     }
 
+
     public Boolean getDisponivel() {
-        return isDisponivel;
+        return disponivel;
     }
 
     public void setDisponivel(Boolean disponivel) {
-        isDisponivel = disponivel;
+        this.disponivel = disponivel;
     }
 
     public static Veiculo toModel(VeiculoForm veiculoForm) {
@@ -143,11 +155,12 @@ public class Veiculo {
                 veiculoForm.getChassi(),
                 veiculoForm.getCor(),
                 veiculoForm.getModelo(),
+                veiculoForm.getRenavam(),
                 veiculoForm.getComprimento(),
                 veiculoForm.getLargura(),
                 veiculoForm.getAltura(),
                 veiculoForm.getVolumeMax(),
                 veiculoForm.getCapacidadeMax(),
-                true);
+                Boolean.TRUE);
     }
 }

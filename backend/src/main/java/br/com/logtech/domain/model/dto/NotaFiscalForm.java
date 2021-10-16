@@ -1,8 +1,8 @@
 package br.com.logtech.domain.model.dto;
 
-import br.com.logtech.domain.model.enumeration.FormaPagamento;
-import br.com.logtech.domain.model.enumeration.Moeda;
+import br.com.logtech.domain.model.ProdutoNota;
 
+import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.List;
 
@@ -12,8 +12,6 @@ public class NotaFiscalForm {
 
     private String endereco;
 
-    private OffsetDateTime dtEmissao;
-
     private OffsetDateTime dtVencimento;
 
     private Long clienteId;
@@ -22,7 +20,9 @@ public class NotaFiscalForm {
 
     private String moeda;
 
-    private List<ProdutoForm> produtos;
+    private List<ProdutoNotaForm> produtos;
+
+    private BigDecimal valor;
 
     public String getNumero() {
         return numero;
@@ -38,14 +38,6 @@ public class NotaFiscalForm {
 
     public void setEndereco(String endereco) {
         this.endereco = endereco;
-    }
-
-    public OffsetDateTime getDtEmissao() {
-        return dtEmissao;
-    }
-
-    public void setDtEmissao(OffsetDateTime dtEmissao) {
-        this.dtEmissao = dtEmissao;
     }
 
     public OffsetDateTime getDtVencimento() {
@@ -78,5 +70,21 @@ public class NotaFiscalForm {
 
     public void setMoeda(String moeda) {
         this.moeda = moeda;
+    }
+
+    public List<ProdutoNotaForm> getProdutos() {
+        return produtos;
+    }
+
+    public void setProdutos(List<ProdutoNotaForm> produtos) {
+        this.produtos = produtos;
+    }
+
+    public BigDecimal getValor() {
+        return valor;
+    }
+
+    public void setValor(BigDecimal valor) {
+        this.valor = valor;
     }
 }

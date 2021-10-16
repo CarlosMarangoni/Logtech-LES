@@ -19,6 +19,9 @@ public class VeiculoForm {
     @NotEmpty
     private String modelo;
 
+    @NotEmpty
+    private String renavam;
+
     @NotNull
     private Double comprimento;
 
@@ -37,11 +40,12 @@ public class VeiculoForm {
     public VeiculoForm() {
     }
 
-    public VeiculoForm(String placa, String chassi, String cor, String modelo, Double comprimento, Double largura, Double altura, Double volumeMax, Double capacidadeMax) {
+    public VeiculoForm(String placa, String chassi, String cor, String modelo,String renavam, Double comprimento, Double largura, Double altura, Double volumeMax, Double capacidadeMax) {
         this.placa = placa;
         this.chassi = chassi;
         this.cor = cor;
         this.modelo = modelo;
+        this.renavam = renavam;
         this.comprimento = comprimento;
         this.largura = largura;
         this.altura = altura;
@@ -79,6 +83,14 @@ public class VeiculoForm {
 
     public void setModelo(String modelo) {
         this.modelo = modelo;
+    }
+
+    public String getRenavam() {
+        return renavam;
+    }
+
+    public void setRenavam(String renavam) {
+        this.renavam = renavam;
     }
 
     public Double getComprimento() {
@@ -127,6 +139,7 @@ public class VeiculoForm {
                 veiculo.getChassi(),
                 veiculo.getCor(),
                 veiculo.getModelo(),
+                veiculo.getRenavam(),
                 veiculo.getComprimento(),
                 veiculo.getLargura(),
                 veiculo.getAltura(),
