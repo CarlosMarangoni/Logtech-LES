@@ -1,5 +1,6 @@
 package br.com.logtech.domain.model.dto;
 
+import br.com.logtech.domain.model.Endereco;
 import br.com.logtech.domain.model.ProdutoNota;
 
 import java.math.BigDecimal;
@@ -10,7 +11,7 @@ public class NotaFiscalForm {
 
     private String numero;
 
-    private String endereco;
+    private Endereco endereco;
 
     private OffsetDateTime dtVencimento;
 
@@ -32,11 +33,11 @@ public class NotaFiscalForm {
         this.numero = numero;
     }
 
-    public String getEndereco() {
+    public Endereco getEndereco() {
         return endereco;
     }
 
-    public void setEndereco(String endereco) {
+    public void setEndereco(Endereco endereco) {
         this.endereco = endereco;
     }
 

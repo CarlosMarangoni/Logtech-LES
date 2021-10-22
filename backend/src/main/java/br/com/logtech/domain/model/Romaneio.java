@@ -4,6 +4,8 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Romaneio {
@@ -24,6 +26,12 @@ public class Romaneio {
     private String latitudePartida;
 
     private String longitudePartida;
+
+    @OneToMany(mappedBy = "entregaPK.romaneio",cascade = CascadeType.MERGE)
+    private List<Entrega> notas = new ArrayList<>();
+
+    public Romaneio() {
+    }
 
     public Long getId() {
         return id;
@@ -48,7 +56,6 @@ public class Romaneio {
     public void setMotorista(Funcionario motorista) {
         this.motorista = motorista;
     }
-
     public Veiculo getVeiculo() {
         return veiculo;
     }
@@ -71,5 +78,13 @@ public class Romaneio {
 
     public void setLongitudePartida(String longitudePartida) {
         this.longitudePartida = longitudePartida;
+    }
+
+    public List<Entrega> getNotas() {
+        return notas;
+    }
+
+    public void setNotas(List<Entrega> notas) {
+        this.notas = notas;
     }
 }

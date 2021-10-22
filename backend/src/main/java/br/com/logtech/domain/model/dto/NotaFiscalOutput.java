@@ -1,6 +1,7 @@
 package br.com.logtech.domain.model.dto;
 
 import br.com.logtech.domain.model.Cliente;
+import br.com.logtech.domain.model.Endereco;
 import br.com.logtech.domain.model.NotaFiscal;
 import br.com.logtech.domain.model.ProdutoNota;
 
@@ -13,7 +14,7 @@ public class NotaFiscalOutput {
 
     private String numero;
 
-    private String endereco;
+    private Endereco endereco;
 
     private OffsetDateTime dtEmissao;
 
@@ -37,7 +38,7 @@ public class NotaFiscalOutput {
 
     private String observacaoPesquisa;
 
-    public NotaFiscalOutput(String numero, String endereco, OffsetDateTime dtEmissao,
+    public NotaFiscalOutput(String numero, Endereco endereco, OffsetDateTime dtEmissao,
                             OffsetDateTime dtVencimento, Cliente cliente, String formaPagamento, String moeda,
                             BigDecimal valor, List<ProdutoNotaOutput> produtos, Integer notaEntregador, Integer notaTempo,
                             Integer notaAtendimento, String observacaoPesquisa) {
@@ -64,11 +65,11 @@ public class NotaFiscalOutput {
         this.numero = numero;
     }
 
-    public String getEndereco() {
+    public Endereco getEndereco() {
         return endereco;
     }
 
-    public void setEndereco(String endereco) {
+    public void setEndereco(Endereco endereco) {
         this.endereco = endereco;
     }
 

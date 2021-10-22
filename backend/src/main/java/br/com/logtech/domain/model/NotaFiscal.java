@@ -21,9 +21,10 @@ public class NotaFiscal {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String numero;
+    private String numeroNota;
 
-    private String endereco;
+    @Embedded
+    private Endereco endereco;
 
     @CreationTimestamp
     private OffsetDateTime dtEmissao;
@@ -58,10 +59,10 @@ public class NotaFiscal {
 
     };
 
-    public NotaFiscal(String numero, String endereco, OffsetDateTime dtVencimento, Cliente cliente,
+    public NotaFiscal(String numeroNota, Endereco endereco, OffsetDateTime dtVencimento, Cliente cliente,
                       FormaPagamento formaPagamento, Moeda moeda, Integer notaEntregador,
                       Integer notaTempoDeEntrega, Integer notaAtendimento, String observacaoPesquisa) {
-        this.numero = numero;
+        this.numeroNota = numeroNota;
         this.endereco = endereco;
         this.dtVencimento = dtVencimento;
         this.cliente = cliente;
@@ -73,9 +74,9 @@ public class NotaFiscal {
         this.observacaoPesquisa = observacaoPesquisa;
     }
 
-    public NotaFiscal(String numero, String endereco, OffsetDateTime dtVencimento,
+    public NotaFiscal(String numeroNota, Endereco endereco, OffsetDateTime dtVencimento,
                       Cliente cliente, FormaPagamento formaPagamento, Moeda moeda, BigDecimal valorTotal, List<ProdutoNota> produtos) {
-        this.numero = numero;
+        this.numeroNota = numeroNota;
         this.endereco = endereco;
         this.dtVencimento = dtVencimento;
         this.cliente = cliente;
@@ -94,18 +95,18 @@ public class NotaFiscal {
     }
 
     public String getNumero() {
-        return numero;
+        return numeroNota;
     }
 
-    public void setNumero(String numero) {
-        this.numero = numero;
+    public void setNumero(String numeroNota) {
+        this.numeroNota = numeroNota;
     }
 
-    public String getEndereco() {
+    public Endereco getEndereco() {
         return endereco;
     }
 
-    public void setEndereco(String endereco) {
+    public void setEndereco(Endereco endereco) {
         this.endereco = endereco;
     }
 
