@@ -8,6 +8,8 @@ import br.com.logtech.domain.model.dto.RomaneioForm;
 import br.com.logtech.domain.model.dto.RomaneioOutput;
 import br.com.logtech.domain.repository.RomaneioRepository;
 import br.com.logtech.domain.service.RomaneioService;
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
