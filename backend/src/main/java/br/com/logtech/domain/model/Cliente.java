@@ -4,6 +4,7 @@ import br.com.logtech.domain.exception.EntradaInvalidaException;
 import br.com.logtech.domain.model.dto.ClienteForm;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -15,6 +16,9 @@ public class Cliente {
     private Long id;
 
     protected String nome;
+
+    @Email
+    protected  String email;
 
     public Cliente() {
     }
@@ -39,6 +43,14 @@ public class Cliente {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public static Cliente toModel(ClienteForm clienteForm) {

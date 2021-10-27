@@ -24,6 +24,8 @@ public class Funcionario {
 
     private String cnh;
 
+    private Boolean disponivel;
+
     public Funcionario() {
     }
 
@@ -32,6 +34,7 @@ public class Funcionario {
         this.cpf = cpf;
         this.cargo = cargo;
         this.cnh = cnh;
+        this.disponivel = Boolean.TRUE;
     }
 
     public Long getId() {
@@ -72,6 +75,14 @@ public class Funcionario {
 
     public void setCnh(String cnh) {
         this.cnh = cnh;
+    }
+
+    public Boolean getDisponivel() {
+        return disponivel;
+    }
+
+    public void setDisponivel(Boolean disponivel) {
+        this.disponivel = disponivel;
     }
 
     public static Funcionario toModel(FuncionarioForm funcionarioForm) {

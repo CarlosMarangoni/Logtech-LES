@@ -9,6 +9,7 @@ import br.com.logtech.domain.model.dto.ProdutoOutput;
 import br.com.logtech.domain.repository.EstoqueRepository;
 import br.com.logtech.domain.repository.ProdutoRepository;
 import br.com.logtech.domain.service.ProdutoService;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,18 +34,21 @@ public class ProdutoController {
     private EstoqueRepository estoqueRepository;
 
     @GetMapping
+    @Operation(summary = "Obter todos produtos")
     public ResponseEntity<List<ProdutoOutput>> obterProdutos(){
         List<Estoque> produtos = estoqueRepository.findAll();
         return ResponseEntity.ok(produtos.stream().map(p -> ProdutoOutput.toOutput(p)).collect(Collectors.toList()));
     }
 
     @GetMapping("/{produtoId}")
+    @Operation(summary = "Obter um produto")
     public ResponseEntity<ProdutoOutput> obterProduto(@PathVariable Long produtoId){
         Estoque produto = estoqueRepository.findById(produtoId).orElseThrow(() -> new PageNotFoundException("Página não encontrada."));
         return ResponseEntity.ok(ProdutoOutput.toOutput(produto));
     }
 
     @PostMapping
+    @Operation(summary = "Cadastrar produto(É criado com estoque 0)")
     public ResponseEntity<ProdutoOutput> cadastrarProduto(@RequestBody ProdutoForm produtoForm, UriComponentsBuilder uriComponentsBuilder){
         Produto produto = produtoService.cadastrar(produtoForm);
 
@@ -55,6 +59,7 @@ public class ProdutoController {
 
     @DeleteMapping("/{produtoId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @Operation(summary = "Excluir produto")
     public void excluirProduto(@PathVariable Long produtoId){
        produtoService.excluir(produtoId);
     }

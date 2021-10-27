@@ -8,6 +8,8 @@ import java.util.stream.Collectors;
 
 public class RomaneioOutput {
 
+    private Long id;
+
     private OffsetDateTime dataCriacao;
 
     private String nomeMotorista;
@@ -20,13 +22,22 @@ public class RomaneioOutput {
 
     private List<EntregaOutput> notas;
 
-    public RomaneioOutput(OffsetDateTime dataCriacao, String nomeMotorista, String modeloVeiculo, String latitudePartida, String longitudePartida, List<EntregaOutput> notas) {
+    public RomaneioOutput(Long id,OffsetDateTime dataCriacao, String nomeMotorista, String modeloVeiculo, String latitudePartida, String longitudePartida, List<EntregaOutput> notas) {
+        this.id = id;
         this.dataCriacao = dataCriacao;
         this.nomeMotorista = nomeMotorista;
         this.modeloVeiculo = modeloVeiculo;
         this.latitudePartida = latitudePartida;
         this.longitudePartida = longitudePartida;
         this.notas = notas;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public OffsetDateTime getDataCriacao() {
@@ -79,6 +90,7 @@ public class RomaneioOutput {
 
     public static RomaneioOutput toOutput(Romaneio romaneio) {
         return new RomaneioOutput(
+                romaneio.getId(),
                 romaneio.getDataCriacao(),
                 romaneio.getMotorista().getNome(),
                 romaneio.getVeiculo().getModelo(),

@@ -52,19 +52,33 @@ public class RomaneioService {
     @Autowired
     private EntregaRepository entregaRepository;
 
+    @Autowired
+    private SenderMailService emailService;
+
     @Transactional
     public Romaneio cadastrar(RomaneioForm romaneioForm) {
         Double volumeAtual = 0.0;
         Double capacidadeAtual = 0.0;
         Romaneio romaneio = new Romaneio();
-        AtomicInteger atomicSum = new AtomicInteger(0);
         romaneio.setLatitudePartida(latitudePartida);
         romaneio.setLongitudePartida(longitudePartida);
-        romaneio.setMotorista(funcionarioRepository.findById(romaneioForm.getMotoristaId()).orElseThrow(() -> new EntradaInvalidaException("Funcionario nao encontrado.")));
+        Funcionario motorista = funcionarioRepository.findById(romaneioForm.getMotoristaId()).orElseThrow(() -> new EntradaInvalidaException("Funcionario nao encontrado."));
         Veiculo veiculo = veiculoRepository.findById(romaneioForm.getVeiculoId()).orElseThrow(() -> new EntradaInvalidaException("Veiculo nao encontrado."));
+        if(!motorista.getDisponivel()){
+            throw new EntradaInvalidaException("Motorista ocupado com outra entrega. Favor selecionar outro motorista.");
+        }else if(!veiculo.getDisponivel()){
+            throw new EntradaInvalidaException("Veiculo ocupado com outra entrega. Favor selecionar outro veiculo.");
+        }
+        romaneio.setMotorista(motorista);
+        motorista.setDisponivel(Boolean.FALSE);
+        romaneio.setVeiculo(veiculo);
+        veiculo.setDisponivel(Boolean.FALSE);
+
+        veiculoRepository.save(veiculo);
+        funcionarioRepository.save(motorista);
+
         Double capacidadeMax = veiculo.getCapacidadeMax();
         Double volumeMax = veiculo.getVolumeMax();
-        romaneio.setVeiculo(veiculo);
         romaneioRepository.save(romaneio);
         for (EntregaForm n : romaneioForm.getNotas()) {
             NotaFiscal notaFiscal = notaFiscalRepository.findById(n.getIdNota()).orElseThrow(() -> new EntradaInvalidaException("Nota fiscal nao encontrada."));
@@ -80,22 +94,17 @@ public class RomaneioService {
             }
             EntregaPK entregaPk = new EntregaPK(notaFiscal, romaneio);
             Entrega entrega = new Entrega(entregaPk);
-            entrega.setSequencia(atomicSum.incrementAndGet());
-
-
             PlaceDetailsResponse detalhesEndereco = getCoordenadas(notaFiscal);
             if (detalhesEndereco.getStatus().equals("OK")) {
                 PlaceDetails[] coordenadas = detalhesEndereco.getResults();
                 entrega.setLatitude(coordenadas[0].getGeometry().getLocation().getLat());
                 entrega.setLongitude(coordenadas[0].getGeometry().getLocation().getLng());
                 entregaRepository.save(entrega);
-
                 romaneio.getNotas().add(entrega);
             } else {
                 throw new EntradaInvalidaException("Endereco invalido.");
             }
-        }
-        ;
+        };
         return romaneio;
 
     }
@@ -119,6 +128,7 @@ public class RomaneioService {
             if (e.getEntregaPK().getNota().equals(nota)) {
                 e.setDataChegada(OffsetDateTime.now());
                 entregaRepository.save(e);
+                emailService.enviar(e);
                 return e;
             }
         }

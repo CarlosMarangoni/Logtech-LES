@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import java.math.BigDecimal;
 
 @Entity
 public class ProdutoNota {
@@ -16,6 +17,8 @@ public class ProdutoNota {
     private ProdutoNotaPK produtoNotaPK = new ProdutoNotaPK();
 
     private Integer quantidade;
+
+    private BigDecimal valorUnitario;
 
     public ProdutoNota() {
     }
@@ -45,9 +48,18 @@ public class ProdutoNota {
         this.quantidade = quantidade;
     }
 
+    public BigDecimal getValorUnitario() {
+        return valorUnitario;
+    }
+
+    public void setValorUnitario(BigDecimal valorUnitario) {
+        this.valorUnitario = valorUnitario;
+    }
+
     public ProdutoNota toModel(ProdutoNotaForm produtoNotaForm) {
         ProdutoNota produtoNota = new ProdutoNota();
         produtoNota.setQuantidade(produtoNotaForm.getQuantidade());
+        produtoNota.setValorUnitario(produtoNotaForm.getValorUnitario());
 
         return produtoNota;
 
