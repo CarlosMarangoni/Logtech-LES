@@ -16,6 +16,9 @@ public class Authorities implements GrantedAuthority {
 
     private String description;
 
+    public Authorities() {
+    }
+
     @Override
     public String getAuthority() {
         return this.description;

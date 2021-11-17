@@ -15,7 +15,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
-   CustomUserDetailsService userDetailsService;
+    private CustomUserDetailsService userDetailsService;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -32,7 +32,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable();
         http.authorizeRequests()
-                .antMatchers("/login").permitAll()
                 .antMatchers("/register").permitAll()
                 .anyRequest().authenticated()
                 .and()

@@ -30,6 +30,9 @@ public class Usuario implements UserDetails {
         this.password = password;
     }
 
+    public Usuario() {
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return this.authorities;

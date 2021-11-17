@@ -12,6 +12,9 @@ INSERT INTO nota_fiscal values (2,'2021-08-31 13:59:35.453600','2021-12-30 13:59
 INSERT INTO produto_nota values (1,4,1,2);
 INSERT INTO produto_nota values (4,1,2,2);
 INSERT INTO funcionario values (1,'Analista de RH','39847745559','072.775.820-98',true,'Luana Oliveira');
+INSERT INTO usuario values (1,'carlos.marangoni1@gmail.com','Carlos','$2a$10$KIYnixM7AvIY/aobXe/MROIXfZjfvQCvwu76SXF.6ujYvo7V.zHlS');
+INSERT INTO authorities values (1,'ADMIN');
+INSERT INTO usuario_authorities values (1,1);
 # INSERT INTO romaneio values(1,'2021-08-31 13:59:35.453600','-23.5356440','-47.194968',1,1);
 # INSERT INTO entrega values ('2021-08-31 13:59:35.453600','-23.5356440','-47.194968',1,1,1);
 # INSERT INTO entrega(latitude,longitude,sequencia,romaneio_id,nota_id) values ('-23.547057','-47.189900',2,1,2);
