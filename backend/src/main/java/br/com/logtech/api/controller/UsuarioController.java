@@ -12,10 +12,12 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 @RestController
 @RequestMapping
+@CrossOrigin
 public class UsuarioController {
 
     @Autowired
